@@ -12,9 +12,11 @@ import project.lms.dto.MemberDto;
 import project.lms.dto.ResponseDto;
 import project.lms.exception.InvalidRequestException;
 import project.lms.model.Exam;
+import project.lms.model.ExamHistory;
 import project.lms.model.ExamQuestion;
 import project.lms.model.ExamResult;
 import project.lms.model.Member;
+import project.lms.repository.ExamHistoryRepository;
 import project.lms.repository.ExamQuestionRepository;
 import project.lms.repository.ExamRepository;
 import project.lms.repository.ExamResultRepository;
@@ -35,13 +37,18 @@ public class ExamResultServiceImpl implements ExamResultService {
 
 	@Autowired
 	private ExamRepository examRepository;
+	
+	@Autowired
+	private ExamHistoryRepository examHistoryRepository;
 
-	public ExamResultServiceImpl(ExamResultRepository examResultRepository, ExamQuestionRepository examQuestionRepository, MemberRepository memberRepository, ExamRepository examRepository) {
+
+	public ExamResultServiceImpl(ExamResultRepository examResultRepository, ExamQuestionRepository examQuestionRepository, MemberRepository memberRepository, ExamRepository examRepository, ExamHistoryRepository examHistoryRepository) {
 	    super();
 	    this.examResultRepository = examResultRepository;
 	    this.examQuestionRepository = examQuestionRepository;
 	    this.memberRepository = memberRepository;
 	    this.examRepository = examRepository;
+	    this.examHistoryRepository = examHistoryRepository;
 	}
 	
 	// 모든 시험 결과를 조회하여 ResponseDto<List<ExamResultDto>>로 반환하는 메서드
@@ -87,14 +94,35 @@ public class ExamResultServiceImpl implements ExamResultService {
 		examResult.setExamQuestion(examQuestion);
 
 		// 시험 결과를 저장
-		examResult = examResultRepository.save(examResult);
+	    examResult = examResultRepository.save(examResult);
 
 	    // 사용자가 제출한 답안이 정답인지 확인
-		checkAnswer(examResult.getExamResultId(), questionId);
+	    checkAnswer(examResult.getExamResultId(), questionId);
 
-	    // 저장된 결과를 ExamResultDto로 변환하여 반환
-		return new ResponseDto<>("SUCCESS", toDto(examResult), "Exam result created successfully");
+	 // 시험 결과가 생성된 후, 시험 완료 상태를 업데이트합니다.
+	    ExamHistory examHistory = examHistoryRepository.findByMember_MemberIdAndExam_ExamId(memberId, examId)
+	        .orElseThrow(() -> new InvalidRequestException("ExamHistory not found", "해당 시험 이력을 찾을 수 없습니다."));
+	    
+	    // 시험에 속한 문제의 수와 그 시험에 대한 시험 결과의 수를 비교합니다.
+	    int totalQuestions = exam.getExamQuestions().size();
+	    int totalResults = examResultRepository.countByExam_ExamId(examId);
+
+	    if (totalQuestions == totalResults) {
+	        // 두 수가 일치하면 모든 문제에 대한 시험 결과가 생성된 것이므로, 완료 상태를 true로 변경합니다.
+	        examHistory.setExamCompletionStatus(true);
+	    }
+
+	    examHistoryRepository.save(examHistory);  // 변경 사항을 저장
+
+	    return new ResponseDto<>("SUCCESS", toDto(examResult), "Exam result created successfully");
 	}
+	
+	@Override
+	public ResponseDto<Integer> countExamResultsByExamId(Long examId) {
+	    int count = examResultRepository.countByExam_ExamId(examId);
+	    return new ResponseDto<>("SUCCESS", count, "Count of exam results retrieved successfully");
+	}
+
 
 
 	// 제출한 답안이 맞는지 확인하고, 결과를 ResponseDto<String>로 반환하는 메서드

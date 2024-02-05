@@ -20,5 +20,7 @@ public interface ExamResultService {
     ResponseDto<String> deleteExamResult(Long examResultId);
 
     ResponseDto<String> checkAnswer(Long examResultId, Long questionId);
+
+    ResponseDto<Integer> countExamResultsByExamId(Long examId);
     
 }
