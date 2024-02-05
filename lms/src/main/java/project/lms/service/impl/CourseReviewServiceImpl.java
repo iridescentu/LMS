@@ -17,7 +17,7 @@ import project.lms.exception.InvalidRequestException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service // 이 클래스가 서비스 레이어의 컴포넌트임을 나타냄
+@Service
 public class CourseReviewServiceImpl implements CourseReviewService {
 
     private CourseReviewRepository courseReviewRepository;
@@ -80,6 +80,7 @@ public class CourseReviewServiceImpl implements CourseReviewService {
         courseReview.setMember(member);
         courseReview.setCourse(course);
         courseReview.setComment(courseReviewDto.getComment());
+        courseReview.setRating(courseReviewDto.getRating());
         courseReview = courseReviewRepository.save(courseReview);
         return CourseReviewDto.from(courseReview);
     }
