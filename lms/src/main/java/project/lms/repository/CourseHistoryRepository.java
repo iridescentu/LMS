@@ -14,6 +14,8 @@ public interface CourseHistoryRepository extends JpaRepository<CourseHistory, Lo
 	List<CourseHistory> findByCourseCourseId(Long courseId);
 	
 	List<CourseHistory> findByMember(Member member);
+	
+	CourseHistory findByMemberAndCourse(Member member, Course course);
 
 //    // 특정 회원의 수강 이력 조회
 //    List<CourseHistory> findByMember(Member member);

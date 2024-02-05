@@ -6,4 +6,6 @@ import project.lms.model.Authority;
 
 public interface AuthorityRepository extends JpaRepository<Authority, String> {
 
+	Authority findByAuthorityName(String name);
+	
 }
