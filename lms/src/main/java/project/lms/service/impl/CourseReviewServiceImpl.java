@@ -32,6 +32,7 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     public CourseReviewServiceImpl(CourseReviewRepository courseReviewRepository, CourseHistoryRepository courseHistoryRepository, MemberRepository memberRepository, CourseRepository courseRepository) {
         super();
         this.courseReviewRepository = courseReviewRepository;
+        this.courseHistoryRepository = courseHistoryRepository;
         this.memberRepository = memberRepository;
         this.courseRepository = courseRepository;
     }
