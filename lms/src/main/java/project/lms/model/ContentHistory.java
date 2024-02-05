@@ -31,24 +31,27 @@ public class ContentHistory {
 	private Content content;
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime lastAccessed;
 	
 	@Column(name = "progress", nullable = false)
 	private Float progress;
+	
+	@Column(name = "isCompleted", nullable = false)
+	private Boolean isCompleted;
 
 	public ContentHistory() {
 		super();
 	}
 
 	public ContentHistory(Long contentHistoryId, Member member, Content content, LocalDateTime lastAccessed,
-			Float progress) {
+			Float progress, Boolean isCompleted) {
 		super();
 		this.contentHistoryId = contentHistoryId;
 		this.member = member;
 		this.content = content;
 		this.lastAccessed = lastAccessed;
 		this.progress = progress;
+		this.isCompleted = isCompleted;
 	}
 
 	public Long getContentHistoryId() {
@@ -89,6 +92,14 @@ public class ContentHistory {
 
 	public void setProgress(Float progress) {
 		this.progress = progress;
+	}
+
+	public Boolean getIsCompleted() {
+		return isCompleted;
+	}
+
+	public void setIsCompleted(Boolean isCompleted) {
+		this.isCompleted = isCompleted;
 	}
 	
 }

@@ -1,7 +1,8 @@
 package project.lms.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,35 +10,42 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "courseHistory")
 public class CourseHistory {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long courseHistoryId;
-
-    @ManyToOne
-    @JoinColumn(name = "memberId", nullable = false)
-    private Member member;
-
-    @ManyToOne
-    @JoinColumn(name = "courseId", nullable = false)
-    private Course course;
-
-    private LocalDate startDate;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long courseHistoryId;
+	
+	@ManyToOne
+	@JoinColumn(name = "memberId")
+	private Member member;
+	
+	@ManyToOne
+	@JoinColumn(name = "courseId")
+	private Course course;
+	
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime startDate;
+	
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime endDate;
     
-    private LocalDate endDate;
-    
+	@Column
     private boolean contentStatus;
 
-    // 기본 생성자
-    public CourseHistory() {
-    }
+	public CourseHistory() {
+		super();
+	}
 
-	public CourseHistory(Long courseHistoryId, Member member, Course course, LocalDate startDate, LocalDate endDate,
-			boolean contentStatus) {
+	public CourseHistory(Long courseHistoryId, Member member, Course course, LocalDateTime startDate,
+			LocalDateTime endDate, boolean contentStatus) {
 		super();
 		this.courseHistoryId = courseHistoryId;
 		this.member = member;
@@ -71,19 +79,19 @@ public class CourseHistory {
 		this.course = course;
 	}
 
-	public LocalDate getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDate getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
 
@@ -94,5 +102,4 @@ public class CourseHistory {
 	public void setContentStatus(boolean contentStatus) {
 		this.contentStatus = contentStatus;
 	}
-
 }
