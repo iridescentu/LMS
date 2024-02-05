@@ -3,6 +3,7 @@ package project.lms.model;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,32 +30,33 @@ public class QnABoard {
     @JoinColumn(name = "memberId", nullable = false)
     private Member member;
     
-    @Column(nullable = false, length = 200)
-    private String title;
-    
-    @Column(columnDefinition = "text")
-    private String description;
-    
-    @Column(columnDefinition = "text")
-    private String content;
+    private String questionText;
     
     @CreationTimestamp
     private LocalDateTime createdAt;
+    
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+    
+    @ManyToOne
+    @JoinColumn(name = "createdBy", nullable = false)
+    private Member createdBy;
+    
+    @ManyToOne
+    @JoinColumn(name = "updatedBy", nullable = true)
+    private Member updatedBy; // 수정자에 대한 필드 추가(권한이 없는 다른 사람이 질문을 수정하거나 삭제하는 것을 방지하기 위해)
 
     // 기본 생성자
     public QnABoard() {
 
     }
 
-	public QnABoard(Long qnaId, Course course, Member member, String title, String description, String content,
-			LocalDateTime createdAt) {
+	public QnABoard(Long qnaId, Course course, Member member, String questionText, LocalDateTime createdAt) {
 		super();
 		this.qnaId = qnaId;
 		this.course = course;
 		this.member = member;
-		this.title = title;
-		this.description = description;
-		this.content = content;
+		this.questionText = questionText;
 		this.createdAt = createdAt;
 	}
 
@@ -82,28 +84,12 @@ public class QnABoard {
 		this.member = member;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getQuestionText() {
+		return questionText;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
 	}
 
 	public LocalDateTime getCreatedAt() {
