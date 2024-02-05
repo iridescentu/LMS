@@ -22,7 +22,7 @@ import project.lms.dto.ResponseDto;
 import project.lms.service.ExamHistoryService;
 
 @RestController
-@RequestMapping("/api/examHistories")
+@RequestMapping("/api/exam-histories")
 @CrossOrigin(origins="http://localhost:3000",
 	methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ExamHistoryController {

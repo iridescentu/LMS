@@ -35,16 +35,10 @@ public class QnABoard {
     @CreationTimestamp
     private LocalDateTime createdAt;
     
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
-    
     @ManyToOne
     @JoinColumn(name = "createdBy", nullable = false)
     private Member createdBy;
     
-    @ManyToOne
-    @JoinColumn(name = "updatedBy", nullable = true)
-    private Member updatedBy; // 수정자에 대한 필드 추가(권한이 없는 다른 사람이 질문을 수정하거나 삭제하는 것을 방지하기 위해)
 
     // 기본 생성자
     public QnABoard() {
