@@ -26,17 +26,15 @@ CREATE TABLE `qna_board` (
   `qna_id` bigint NOT NULL AUTO_INCREMENT,
   `created_at` datetime(6) DEFAULT NULL,
   `question_text` varchar(255) DEFAULT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
   `course_id` bigint NOT NULL,
-  `created_by` bigint NOT NULL,
   `member_id` bigint NOT NULL,
   PRIMARY KEY (`qna_id`),
   KEY `FKlwkn03noudiqds4i8v8ohmoqr` (`course_id`),
-  KEY `FK26lg7m8wsb4bxutcp92kvt85h` (`created_by`),
   KEY `FK55pw91v2ctmq6ecm2o7d4iopa` (`member_id`),
-  CONSTRAINT `FK26lg7m8wsb4bxutcp92kvt85h` FOREIGN KEY (`created_by`) REFERENCES `members` (`member_id`),
   CONSTRAINT `FK55pw91v2ctmq6ecm2o7d4iopa` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`),
   CONSTRAINT `FKlwkn03noudiqds4i8v8ohmoqr` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +43,7 @@ CREATE TABLE `qna_board` (
 
 LOCK TABLES `qna_board` WRITE;
 /*!40000 ALTER TABLE `qna_board` DISABLE KEYS */;
+INSERT INTO `qna_board` VALUES (1,NULL,'질문핑',NULL,1,3),(2,'2024-02-06 18:13:54.378139','여기에 질문 내용을 입력하세요','2024-02-06 18:13:54.378139',1,3),(3,'2024-02-06 18:48:05.128795','QnA 댓글 테스트','2024-02-06 18:48:05.128795',1,3);
 /*!40000 ALTER TABLE `qna_board` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 16:44:34
+-- Dump completed on 2024-02-06 20:48:18

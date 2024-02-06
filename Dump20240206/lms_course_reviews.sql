@@ -34,7 +34,7 @@ CREATE TABLE `course_reviews` (
   KEY `FKlrpaadw9mi16mpm88uum9bdhm` (`member_id`),
   CONSTRAINT `FK799g8dfcye3g51ru63bfdhyb1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
   CONSTRAINT `FKlrpaadw9mi16mpm88uum9bdhm` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `course_reviews` (
 
 LOCK TABLES `course_reviews` WRITE;
 /*!40000 ALTER TABLE `course_reviews` DISABLE KEYS */;
+INSERT INTO `course_reviews` VALUES (1,'This course is excellent! Highly recommended.',5,'2024-02-06 18:04:14.327936',1,3);
 /*!40000 ALTER TABLE `course_reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 16:44:36
+-- Dump completed on 2024-02-06 20:48:20
