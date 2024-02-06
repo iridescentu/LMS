@@ -7,7 +7,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import project.lms.dto.ResponseDto;
+import project.lms.model.Content;
 import project.lms.model.ContentHistory;
+import project.lms.model.Member;
 import project.lms.service.ContentHistoryService;
 
 import java.util.List;
@@ -62,4 +64,19 @@ public class ContentHistoryController {
 		ResponseDto<List<ContentHistory>> contentHistories = contentHistoryService.getIncompleteContentHistories();
 		return new ResponseEntity<>(contentHistories, HttpStatus.OK);
 	}
+	
+	// 콘텐츠 클릭 시 ContentHistory 생성
+	@PostMapping("/create")
+	public ResponseEntity<ResponseDto<ContentHistory>> createContentHistory(@RequestBody Member member, @RequestBody Content content) {
+		ResponseDto<ContentHistory> contentHistory = contentHistoryService.createContentHistory(member, content);
+		return new ResponseEntity<>(contentHistory, HttpStatus.CREATED);
+	}
+
+	// 학습 완료 버튼 클릭 시 isCompleted 필드 업데이트
+	@PutMapping("/complete")
+	public ResponseEntity<ResponseDto<ContentHistory>> completeContentHistory(@RequestBody Member member, @RequestBody Content content) {
+		ResponseDto<ContentHistory> contentHistory = contentHistoryService.completeContentHistory(member, content);
+		return new ResponseEntity<>(contentHistory, HttpStatus.OK);
+	}
+		
 }

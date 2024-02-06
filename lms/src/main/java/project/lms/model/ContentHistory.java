@@ -31,9 +31,6 @@ public class ContentHistory {
 	@Column(nullable = false)
 	private LocalDateTime lastAccessed;
 	
-	@Column(name = "progress", nullable = false)
-	private Float progress;
-	
 	@Column(name = "isCompleted", nullable = false)
 	private Boolean isCompleted;
 
@@ -41,14 +38,12 @@ public class ContentHistory {
 		super();
 	}
 
-	public ContentHistory(Long contentHistoryId, Member member, Content content, LocalDateTime lastAccessed,
-			Float progress, Boolean isCompleted) {
+	public ContentHistory(Long contentHistoryId, Member member, Content content, LocalDateTime lastAccessed, Boolean isCompleted) {
 		super();
 		this.contentHistoryId = contentHistoryId;
 		this.member = member;
 		this.content = content;
 		this.lastAccessed = lastAccessed;
-		this.progress = progress;
 		this.isCompleted = isCompleted;
 	}
 
@@ -82,14 +77,6 @@ public class ContentHistory {
 
 	public void setLastAccessed(LocalDateTime lastAccessed) {
 		this.lastAccessed = lastAccessed;
-	}
-
-	public Float getProgress() {
-		return progress;
-	}
-
-	public void setProgress(Float progress) {
-		this.progress = progress;
 	}
 
 	public Boolean getIsCompleted() {

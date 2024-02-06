@@ -92,7 +92,7 @@ public class ExamHistoryServiceImpl implements ExamHistoryService {
         }
     }
 
- // 시험 이력 생성
+    // 시험 이력 생성
     @Transactional
     @Override
     public ResponseDto<ExamHistoryDto> createExamHistory(ExamHistoryDto examHistoryDto){
@@ -123,7 +123,7 @@ public class ExamHistoryServiceImpl implements ExamHistoryService {
     }
 
 
- // 특정 시험 이력 수정
+    // 특정 시험 이력 수정
     @Transactional
     @Override
     public ResponseDto<ExamHistoryDto> updateExamHistory(Long examHistoryId, ExamHistoryDto examHistoryDto) {

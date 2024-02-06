@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import project.lms.dto.ResponseDto;
 import project.lms.enumstatus.ResultCode;
 import project.lms.exception.InvalidRequestException;
+import project.lms.model.Content;
 import project.lms.model.ContentHistory;
 import project.lms.model.Member;
 import project.lms.repository.ContentHistoryRepository;
@@ -27,6 +28,39 @@ public class ContentHistoryServiceImpl implements ContentHistoryService {
 		this.contentHistoryRepository = contentHistoryRepository;
 		this.memberRepository = memberRepository;
 	}
+	
+	// 콘텐츠 클릭 시 ContentHistory 생성
+    @Override
+    public ResponseDto<ContentHistory> createContentHistory(Member member, Content content) {
+        ContentHistory newContentHistory = new ContentHistory();
+        newContentHistory.setMember(member);
+        newContentHistory.setContent(content);
+        newContentHistory.setIsCompleted(false);
+
+        contentHistoryRepository.save(newContentHistory);
+
+        return new ResponseDto<>(
+            ResultCode.SUCCESS.name(),
+            newContentHistory,
+            "ContentHistory가 생성되었습니다."
+        );
+    }
+
+    // 학습 완료 버튼 클릭 시 isCompleted 필드 업데이트
+    @Override
+    public ResponseDto<ContentHistory> completeContentHistory(Member member, Content content) {
+        ContentHistory existingContentHistory = contentHistoryRepository.findByMemberAndContent(member, content)
+            .orElseThrow(() -> new InvalidRequestException("not found contentHistory", "ContentHistory를 찾을 수 없습니다."));
+
+        existingContentHistory.setIsCompleted(true);
+        contentHistoryRepository.save(existingContentHistory);
+
+        return new ResponseDto<>(
+            ResultCode.SUCCESS.name(),
+            existingContentHistory,
+            "ContentHistory의 isCompleted가 업데이트되었습니다."
+        );
+    }
 
 	// 전체 조회
 	@Override

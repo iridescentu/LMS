@@ -8,6 +8,7 @@ import project.lms.dto.CourseHistoryDto;
 import project.lms.dto.ResponseDto;
 import project.lms.enumstatus.ResultCode;
 import project.lms.exception.InvalidRequestException;
+import project.lms.model.ContentHistory;
 import project.lms.model.Course;
 import project.lms.model.CourseHistory;
 import project.lms.model.ExamHistory;
@@ -82,42 +83,46 @@ public class CourseHistoryServiceImpl implements CourseHistoryService {
 	}
 	
 	// 수료증 자격 업데이트
-	public ResponseDto<CourseHistoryDto> updateCourseHistoryStatus(Long courseHistoryId) {
-	    CourseHistory courseHistory = courseHistoryRepository.findById(courseHistoryId)
-	            .orElseThrow(() -> new InvalidRequestException("not found courseHistory", "courseHistory를 찾을 수 없습니다."));
-	    Long courseId = courseHistory.getCourse().getCourseId();
-	    Long memberId = courseHistory.getMember().getMemberId();
+    public ResponseDto<CourseHistoryDto> updateCourseHistoryStatus(Long courseHistoryId) {
+        CourseHistory courseHistory = courseHistoryRepository.findById(courseHistoryId)
+                .orElseThrow(() -> new InvalidRequestException("not found courseHistory", "courseHistory를 찾을 수 없습니다."));
+        Long courseId = courseHistory.getCourse().getCourseId();
+        Long memberId = courseHistory.getMember().getMemberId();
 
-	    Long totalContents = courseRepository.countContentsByCourseId(courseId);
-	    Long completedContents = contentHistoryRepository.countByMemberMemberIdAndIsCompletedTrue(memberId);
+        Long totalContents = courseRepository.countContentsByCourseId(courseId);
+        Long completedContents = contentHistoryRepository.countByMemberMemberIdAndIsCompletedTrue(memberId);
 
-	 // 강의별 시험 이력 조회
-	    List<ExamHistory> examHistories = examHistoryRepository.findByMember_MemberId(memberId);
-	    boolean isExamCompleted = examHistories.stream()
-	            .filter(examHistory -> examHistory.getExam().getContent().getCourse().getCourseId().equals(courseId)) 
-	            .allMatch(ExamHistory::isExamCompletionStatus);
+        // 강의별 시험 이력 조회
+        List<ExamHistory> examHistories = examHistoryRepository.findByMember_MemberId(memberId);
+        boolean isExamCompleted = examHistories.stream()
+                .filter(examHistory -> examHistory.getExam().getContent().getCourse().getCourseId().equals(courseId)) 
+                .allMatch(ExamHistory::isExamCompletionStatus);
 
-	    CourseHistoryDto courseHistoryDto = new CourseHistoryDto();
-	    courseHistoryDto.setCourseHistory(courseHistory);
-	    courseHistoryDto.setTotalContents(totalContents);
-	    courseHistoryDto.setCompletedContents(completedContents);
+        // 강의별 컨텐츠 이력 조회
+        List<ContentHistory> contentHistories = contentHistoryRepository.findByContent_Course_CourseIdAndMember_MemberId(courseId, memberId);
+        boolean isAllContentCompleted = contentHistories.stream().allMatch(ContentHistory::getIsCompleted);
 
-	    if (totalContents.equals(completedContents) && isExamCompleted) {
-	        courseHistory.setContentStatus(true);
-	        courseHistoryRepository.save(courseHistory);
-	        return new ResponseDto<>(
-	                ResultCode.SUCCESS.name(),
-	                courseHistoryDto,
-	                "CourseHistory의 status가 업데이트되었습니다."
-	            );
-	    } else {
-	        return new ResponseDto<>(
-	                ResultCode.ERROR.name(),
-	                null,
-	                "CourseHistory의 status 업데이트에 실패하였습니다."
-	            );
-	    }
-	}
+        CourseHistoryDto courseHistoryDto = new CourseHistoryDto();
+        courseHistoryDto.setCourseHistory(courseHistory);
+        courseHistoryDto.setTotalContents(totalContents);
+        courseHistoryDto.setCompletedContents(completedContents);
+
+        if (totalContents.equals(completedContents) && isExamCompleted && isAllContentCompleted) {
+            courseHistory.setContentStatus(true);
+            courseHistoryRepository.save(courseHistory);
+            return new ResponseDto<>(
+                    ResultCode.SUCCESS.name(),
+                    courseHistoryDto,
+                    "CourseHistory의 status가 업데이트되었습니다."
+                );
+        } else {
+            return new ResponseDto<>(
+                    ResultCode.ERROR.name(),
+                    null,
+                    "CourseHistory의 status 업데이트에 실패하였습니다."
+                );
+        }
+    }
 }
 
 //    private final CourseHistoryRepository courseHistoryRepository;
