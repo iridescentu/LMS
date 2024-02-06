@@ -2,6 +2,8 @@ package project.lms.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import project.lms.dto.ContentHistoryDto;
 import project.lms.dto.ResponseDto;
 import project.lms.enumstatus.ResultCode;
 import project.lms.exception.InvalidRequestException;
@@ -29,14 +31,18 @@ public class ContentHistoryServiceImpl implements ContentHistoryService {
 		this.memberRepository = memberRepository;
 	}
 	
-	// 콘텐츠 클릭 시 ContentHistory 생성
+	 // 콘텐츠 클릭 시 ContentHistory 생성
     @Override
-    public ResponseDto<ContentHistory> createContentHistory(Member member, Content content) {
+    public ResponseDto<ContentHistory> createContentHistory(ContentHistoryDto contentHistoryDto) {
+        Long memberId = contentHistoryDto.getMemberId();
+        Long contentId = contentHistoryDto.getContentId();
+        
+        // memberId와 contentId를 이용하여 Member와 Content 객체를 찾거나 생성하는 등의 로직을 추가해야 합니다.
+        
+        // ContentHistory 객체 생성 및 저장 로직
         ContentHistory newContentHistory = new ContentHistory();
-        newContentHistory.setMember(member);
-        newContentHistory.setContent(content);
-        newContentHistory.setIsCompleted(false);
-
+        // setMember(), setContent() 메서드로 Member와 Content 객체 설정
+        newContentHistory.setIsCompleted(false); // 예시로 isCompleted는 기본값으로 설정
         contentHistoryRepository.save(newContentHistory);
 
         return new ResponseDto<>(
