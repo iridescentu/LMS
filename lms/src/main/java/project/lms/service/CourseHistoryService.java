@@ -3,6 +3,7 @@ package project.lms.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import project.lms.dto.CourseHistoryDto;
 import project.lms.dto.ResponseDto;
 import project.lms.model.Course;
 import project.lms.model.CourseHistory;
@@ -15,6 +16,9 @@ public interface CourseHistoryService {
 	public ResponseDto<List<CourseHistory>> getCourseHistoriesByCourse(Long courseId);
 	
 	public ResponseDto<List<CourseHistory>> getMyCourseHistories();
+	
+	public ResponseDto<CourseHistoryDto> updateCourseHistoryStatus(Long courseHistoryId); // 추가 코드
+
 
 //    // 특정 회원의 수강 이력 조회
 //    ResponseDto<List<CourseHistory>> getCourseHistoryByMember(Member member);

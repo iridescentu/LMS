@@ -15,5 +15,7 @@ public interface ContentHistoryRepository extends JpaRepository<ContentHistory, 
 	List<ContentHistory> findByIsCompletedTrue();
 	
 	List<ContentHistory> findByIsCompletedFalse();
+	
+	Long countByMemberMemberIdAndIsCompletedTrue(Long memberId); // 코드 추가
 
 }
