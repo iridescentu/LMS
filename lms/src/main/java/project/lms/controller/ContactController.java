@@ -12,7 +12,7 @@ import project.lms.service.ContactService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/contact")
 @CrossOrigin(origins = "http://localhost:3000", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT })
 public class ContactController {
 
@@ -23,25 +23,25 @@ public class ContactController {
         this.contactService = contactService;
     }
 
-    @PostMapping("/contact/save")
+    @PostMapping("/save")
     public ResponseEntity<ResponseDto<Contact>> saveContact(@RequestBody Contact contact) {
         ResponseDto<Contact> response = contactService.saveContact(contact);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/contact/{contactId}")
+    @GetMapping("/{contactId}")
     public ResponseEntity<ResponseDto<Contact>> getContactById(@PathVariable Long contactId) {
         ResponseDto<Contact> response = contactService.getContactById(contactId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/contact")
+    @GetMapping
     public ResponseEntity<ResponseDto<List<Contact>>> getAllContacts() {
         ResponseDto<List<Contact>> response = contactService.getAllContacts();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PutMapping("/contact/update/{contactId}")
+    @PutMapping("/update/{contactId}")
     public ResponseEntity<ResponseDto<Contact>> updateContact(
             @PathVariable Long contactId,
             @RequestBody Contact updatedContact) {
@@ -49,7 +49,7 @@ public class ContactController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping("/contact/delete/{contactId}")
+    @DeleteMapping("/delete/{contactId}")
     public ResponseEntity<ResponseDto<String>> deleteContact(@PathVariable Long contactId) {
         ResponseDto<String> response = contactService.deleteContact(contactId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
