@@ -45,9 +45,9 @@ public class CourseHistoryController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<ResponseDto<List<CourseHistory>>> getMyCourseHistories() {
-		ResponseDto<List<CourseHistory>> courseHistories = courseHistoryService.getMyCourseHistories();
-		return new ResponseEntity<>(courseHistories, HttpStatus.OK);
+	public ResponseEntity<ResponseDto<List<CourseHistoryDto>>> getMyCourseHistories() {
+		ResponseDto<List<CourseHistoryDto>> courseHistoryDtos = courseHistoryService.getMyCourseHistories();
+		return new ResponseEntity<>(courseHistoryDtos, HttpStatus.OK);
 	}
 	
 	// 수료증 자격 업데이트

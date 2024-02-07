@@ -22,6 +22,7 @@ import project.lms.service.CourseHistoryService;
 import project.lms.util.SecurityUtil;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -71,16 +72,30 @@ public class CourseHistoryServiceImpl implements CourseHistoryService {
         return memberRepository.findByLoginId(username);
     }
 	
-	// 로그인 유저가 수강 중인 CourseHistory 조회
-	public ResponseDto<List<CourseHistory>> getMyCourseHistories() {
+	// 로그인 유저의 courseHistory 조회
+	public ResponseDto<List<CourseHistoryDto>> getMyCourseHistories() {
 		Member member = getCurrentUser();
 		List<CourseHistory> courseHistories = courseHistoryRepository.findByMember(member);
-		
-		return new ResponseDto<>(
-				ResultCode.SUCCESS.name(),
-				courseHistories,
-				"로그인한 사용자가 수강 중인 courseHistory를 조회하였습니다.");
-	}
+			
+		List<CourseHistoryDto> courseHistoryDtos = new ArrayList<>();
+	    for (CourseHistory courseHistory : courseHistories) {
+	    	Long courseId = courseHistory.getCourse().getCourseId();
+	        Long totalContents = courseRepository.countContentsByCourseId(courseId);
+	        Long completedContents = contentHistoryRepository.countByMemberMemberIdAndIsCompletedTrue(totalContents);
+
+	        CourseHistoryDto courseHistoryDto = new CourseHistoryDto();
+	        courseHistoryDto.setCourseHistory(courseHistory);
+	        courseHistoryDto.setTotalContents(totalContents);
+	        courseHistoryDto.setCompletedContents(completedContents);
+
+	        courseHistoryDtos.add(courseHistoryDto);
+	        }
+	    
+	        return new ResponseDto<>(
+					ResultCode.SUCCESS.name(),
+					courseHistoryDtos,
+					"로그인한 사용자가 수강 중인 courseHistory를 조회하였습니다.");
+		}
 	
 	// 수료증 자격 업데이트
     public ResponseDto<CourseHistoryDto> updateCourseHistoryStatus(Long courseHistoryId) {
