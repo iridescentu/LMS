@@ -36,7 +36,7 @@ public class AnnouncementController {
         return new ResponseEntity<>(announcements, HttpStatus.OK);
     }
 
-    @PostMapping("save")
+    @PostMapping("/save")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Announcement> saveAnnouncement(@RequestBody Announcement announcement) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -46,7 +46,7 @@ public class AnnouncementController {
         return new ResponseEntity<>(savedAnnouncement, HttpStatus.CREATED);
     }
 
-    @PutMapping("update/{announcementId}")
+    @PutMapping("/update/{announcementId}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Announcement> updateAnnouncement(@PathVariable Long announcementId, @RequestBody Announcement announcement) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -59,7 +59,7 @@ public class AnnouncementController {
         return new ResponseEntity<>(updatedAnnouncement, HttpStatus.OK);
     }
 
-    @DeleteMapping("delete/{announcementId}")
+    @DeleteMapping("/delete/{announcementId}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> deleteAnnouncement(@PathVariable Long announcementId) {
         announcementService.deleteAnnouncement(announcementId);
