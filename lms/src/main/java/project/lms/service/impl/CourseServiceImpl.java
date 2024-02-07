@@ -54,8 +54,8 @@ public class CourseServiceImpl implements CourseService {
 	        course.setAnnouncement(courseDto.getAnnouncement());
 	        course.setCourseThumbnail(courseDto.getCourseThumbnail());
 	        
-	        if (courseDto.getSubjectId() != null) {
-	             Subject subject = subjectRepository.findById(courseDto.getSubjectId())
+	        if (courseDto.getSubject() != null) {
+	             Subject subject = subjectRepository.findById(courseDto.getSubject().getSubjectId())
 	                 .orElseThrow(() -> new InvalidRequestException("Subject not found.", "과목을 찾을 수 없습니다."));
 	             course.setSubject(subject);
 	        }
@@ -166,8 +166,8 @@ public class CourseServiceImpl implements CourseService {
 		 course.setAnnouncement(courseDto.getAnnouncement());
 		 course.setCourseThumbnail(courseDto.getCourseThumbnail());
 		 
-		 if (courseDto.getSubjectId() != null) {
-		        Subject subject = subjectRepository.findById(courseDto.getSubjectId())
+		 if (courseDto.getSubject() != null) {
+		        Subject subject = subjectRepository.findById(courseDto.getSubject().getSubjectId())
 		            .orElseThrow(() -> new InvalidRequestException("Subject not found.", "과목을 찾을 수 없습니다."));
 		        course.setSubject(subject);
 		    }
