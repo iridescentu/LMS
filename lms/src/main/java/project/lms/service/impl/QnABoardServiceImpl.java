@@ -125,5 +125,17 @@ public class QnABoardServiceImpl implements QnABoardService {
 
         return new ResponseDto<>("Success", qnaBoardDtos, "Successfully retrieved QnABoards by memberId");
     }
+    
+    @Override
+    public ResponseDto<List<QnABoardDto>> getQnABoardsByCourseId(Long courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new InvalidRequestException("Course not found", "해당 과정을 찾을 수 없습니다."));
+        
+        List<QnABoardDto> qnaBoardDtos = qnaBoardRepository.findByCourse(course).stream()
+                .map(QnABoardDto::from)
+                .collect(Collectors.toList());
+
+        return new ResponseDto<>("Success", qnaBoardDtos, "Successfully retrieved QnABoards by courseId");
+    }
 
 }

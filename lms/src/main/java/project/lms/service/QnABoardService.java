@@ -17,4 +17,6 @@ public interface QnABoardService {
 
     ResponseDto<List<QnABoardDto>> getQnABoardsByMemberId(Long memberId);
     
+    ResponseDto<List<QnABoardDto>> getQnABoardsByCourseId(Long courseId);
+    
 }
