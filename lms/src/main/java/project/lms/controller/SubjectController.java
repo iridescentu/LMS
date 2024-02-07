@@ -36,8 +36,8 @@ public class SubjectController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Subject>> getAllSubjects() {
-        List<Subject> subjects = subjectService.getAllSubjects().getData();
+    public ResponseEntity<ResponseDto<List<Subject>>> getAllSubjects() {
+        ResponseDto<List<Subject>> subjects = subjectService.getAllSubjects();
         return new ResponseEntity<>(subjects, HttpStatus.OK);
     }
 

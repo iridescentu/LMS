@@ -29,10 +29,6 @@ public class QnAReply {
     @JoinColumn(name = "memberId", nullable = false)
     private Member member;
     
-    @ManyToOne
-    @JoinColumn(name = "courseId", nullable = false)
-    private Course course;
-    
     private String replyText;
     
     @CreationTimestamp
@@ -40,18 +36,17 @@ public class QnAReply {
     
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-	public QnAReply() {
+    
+    public QnAReply() {
 		super();
 	}
 
-	public QnAReply(Long replyId, QnABoard qnaBoard, Member member, Course course, String replyText,
-			LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public QnAReply(Long replyId, QnABoard qnaBoard, Member member, String replyText, LocalDateTime createdAt,
+			LocalDateTime updatedAt) {
 		super();
 		this.replyId = replyId;
 		this.qnaBoard = qnaBoard;
 		this.member = member;
-		this.course = course;
 		this.replyText = replyText;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -81,14 +76,6 @@ public class QnAReply {
 		this.member = member;
 	}
 
-	public Course getCourse() {
-		return course;
-	}
-
-	public void setCourse(Course course) {
-		this.course = course;
-	}
-
 	public String getReplyText() {
 		return replyText;
 	}
@@ -112,5 +99,5 @@ public class QnAReply {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-    
+	
 }
