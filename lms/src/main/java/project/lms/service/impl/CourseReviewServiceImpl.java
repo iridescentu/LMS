@@ -85,7 +85,6 @@ public class CourseReviewServiceImpl implements CourseReviewService {
         return CourseReviewDto.from(courseReview);
     }
 
-
     // 리뷰를 업데이트하고, 업데이트된 리뷰를 CourseReviewDto로 반환하는 메서드
     @Override
     public CourseReviewDto updateCourseReview(CourseReviewDto courseReviewDto) {
