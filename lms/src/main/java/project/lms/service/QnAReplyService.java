@@ -15,13 +15,15 @@ public interface QnAReplyService {
     
     ResponseDto<QnAReplyDto> createQnAReply(QnAReplyDto qnaReplyDto, Long memberId, Long qnaId);
 
-    ResponseDto<QnAReplyDto> updateQnAReply(Long replyId, QnAReplyDto qnaReplyDto, Long memberId);
+    ResponseDto<String> deleteQnAReply(Long replyId);
 
-    ResponseDto<String> deleteQnAReply(Long replyId, Long memberId);
-
-    ResponseDto<List<QnAReplyDto>> getQnARepliesByQnABoardIdAndMemberId(Long qnaId, Long memberId);
+    
     
     // ----- 사용 안 할 듯 -----
     // 특정 회원이 작성한 모든 질문 조회
     ResponseDto<List<QnAReplyDto>> getQnARepliesByMemberId(Long memberId);
+    // 질문에 대한 답변 수정
+//    ResponseDto<QnAReplyDto> updateQnAReply(Long replyId, QnAReplyDto qnaReplyDto, Long memberId);
+    ResponseDto<List<QnAReplyDto>> getQnARepliesByQnABoardIdAndMemberId(Long qnaId, Long memberId);
+
 }
