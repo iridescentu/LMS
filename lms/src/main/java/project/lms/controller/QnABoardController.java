@@ -48,23 +48,25 @@ public class QnABoardController {
 
     // QnA 댓글 작성 (memberId와 courseId를 조회해 해당하는 course를 수강 중인 member만 댓글 작성 가능)
     @PostMapping
-    public ResponseEntity<ResponseDto<Void>> createQnABoard(@RequestBody QnABoardDto qnaBoardDto) {
-        Long courseId = qnaBoardDto.getCourseId(); // QnABoardDto에서 courseId를 추출
-        Long memberId = qnaBoardDto.getMemberId(); // QnABoardDto에서 memberId를 추출
-        ResponseDto<Void> responseDto = qnaBoardService.createQnABoard(qnaBoardDto, courseId, memberId);
+    public ResponseEntity<ResponseDto<QnABoardDto>> createQnABoard(@RequestBody QnABoardDto qnaBoardDto) {
+//        Long courseId = qnaBoardDto.getCourseId(); // QnABoardDto에서 courseId를 추출
+//        Long memberId = qnaBoardDto.getMemberId(); // QnABoardDto에서 memberId를 추출
+        ResponseDto<QnABoardDto> responseDto = qnaBoardService.createQnABoard(qnaBoardDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     // qnaId를 통해 해당 QnA 댓글 수정 (memberId를 통해 수정하려는 댓글을 작성한 작성하자만 댓글 수정 가능)
     @PutMapping("/{qnaId}")
-    public ResponseEntity<ResponseDto<QnABoardDto>> updateQnABoard(@PathVariable Long qnaId, @RequestBody QnABoardDto qnaBoardDto, @RequestParam Long memberId) {
-        ResponseDto<QnABoardDto> responseDto = qnaBoardService.updateQnABoard(qnaId, qnaBoardDto, memberId);
+    public ResponseEntity<ResponseDto<QnABoardDto>> updateQnABoard(@PathVariable Long qnaId, @RequestBody QnABoardDto qnaBoardDto) {
+        qnaBoardDto.setQnaId(qnaId);
+        ResponseDto<QnABoardDto> responseDto = qnaBoardService.updateQnABoard(qnaBoardDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{qnaId}") // qnaId를 통해 해당 QnA 댓글 삭제 (해당 댓글 작성자와 관리자만 삭제 가능)
-    public ResponseEntity<ResponseDto<String>> deleteQnABoard(@PathVariable Long qnaId, @RequestParam Long memberId) {
-        ResponseDto<String> responseDto = qnaBoardService.deleteQnABoard(qnaId, memberId);
-        return new ResponseEntity<>(responseDto, HttpStatus.NO_CONTENT);
+    // qnaId를 통해 해당 QnA 댓글 삭제 (해당 댓글 작성자와 관리자만 삭제 가능)
+    @DeleteMapping("/{qnaId}")
+    public ResponseEntity<ResponseDto<String>> deleteQnABoard(@PathVariable Long qnaId) {
+        ResponseDto<String> responseDto = qnaBoardService.deleteQnABoard(qnaId);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
