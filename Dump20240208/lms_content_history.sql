@@ -16,28 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `exam_question_options`
+-- Table structure for table `content_history`
 --
 
-DROP TABLE IF EXISTS `exam_question_options`;
+DROP TABLE IF EXISTS `content_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `exam_question_options` (
-  `exam_question_exam_question_id` bigint NOT NULL,
-  `options` varchar(255) NOT NULL,
-  KEY `FKb7lx1ei1yj1xddcsyb1nndiqo` (`exam_question_exam_question_id`),
-  CONSTRAINT `FKb7lx1ei1yj1xddcsyb1nndiqo` FOREIGN KEY (`exam_question_exam_question_id`) REFERENCES `exam_questions` (`exam_question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `content_history` (
+  `content_history_id` bigint NOT NULL AUTO_INCREMENT,
+  `is_completed` bit(1) NOT NULL,
+  `last_accessed` datetime(6) DEFAULT NULL,
+  `content_id` bigint NOT NULL,
+  `member_id` bigint NOT NULL,
+  PRIMARY KEY (`content_history_id`),
+  KEY `FKt4fu94n7vpacujc7hwv8jx06x` (`content_id`),
+  KEY `FKehcc7al1fuxw81pyw1jhav9ne` (`member_id`),
+  CONSTRAINT `FKehcc7al1fuxw81pyw1jhav9ne` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`),
+  CONSTRAINT `FKt4fu94n7vpacujc7hwv8jx06x` FOREIGN KEY (`content_id`) REFERENCES `contents` (`content_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `exam_question_options`
+-- Dumping data for table `content_history`
 --
 
-LOCK TABLES `exam_question_options` WRITE;
-/*!40000 ALTER TABLE `exam_question_options` DISABLE KEYS */;
-INSERT INTO `exam_question_options` VALUES (1,'선택지 1'),(1,'선택지 2'),(1,'선택지 3'),(1,'선택지 4'),(1,'선택지 5'),(2,'A programming language'),(2,'A coffee brand'),(2,'An island'),(3,'Out-of-Place'),(3,'Object-Oriented Programming'),(3,'Overly Obscure Process'),(4,'Out-of-Place'),(4,'Object-Oriented Programming'),(4,'Overly Obscure Process'),(5,'1 번'),(5,'2 번'),(5,'3 번');
-/*!40000 ALTER TABLE `exam_question_options` ENABLE KEYS */;
+LOCK TABLES `content_history` WRITE;
+/*!40000 ALTER TABLE `content_history` DISABLE KEYS */;
+INSERT INTO `content_history` VALUES (1,_binary '',NULL,1,3),(2,_binary '',NULL,2,3);
+/*!40000 ALTER TABLE `content_history` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:20
+-- Dump completed on 2024-02-08 20:04:18

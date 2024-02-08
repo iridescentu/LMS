@@ -16,35 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `course_history`
+-- Table structure for table `exam_calendar`
 --
 
-DROP TABLE IF EXISTS `course_history`;
+DROP TABLE IF EXISTS `exam_calendar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `course_history` (
-  `course_history_id` bigint NOT NULL AUTO_INCREMENT,
-  `content_status` bit(1) DEFAULT NULL,
-  `end_date` datetime(6) DEFAULT NULL,
-  `start_date` datetime(6) DEFAULT NULL,
-  `course_id` bigint DEFAULT NULL,
-  `member_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`course_history_id`),
-  KEY `FKxce0gxyb0ouqgs5ydokexl7w` (`course_id`),
-  KEY `FKfmrhqu7xt09nelubfh62m97j0` (`member_id`),
-  CONSTRAINT `FKfmrhqu7xt09nelubfh62m97j0` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`),
-  CONSTRAINT `FKxce0gxyb0ouqgs5ydokexl7w` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `exam_calendar` (
+  `test_id` bigint NOT NULL AUTO_INCREMENT,
+  `additional_info` varchar(255) DEFAULT NULL,
+  `current_applicants` int DEFAULT NULL,
+  `end_time` datetime(6) DEFAULT NULL,
+  `is_online` bit(1) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `max_applicants` int DEFAULT NULL,
+  `price` int DEFAULT NULL,
+  `registration_deadline` date DEFAULT NULL,
+  `start_time` datetime(6) DEFAULT NULL,
+  `test_date` date DEFAULT NULL,
+  `test_name` varchar(255) DEFAULT NULL,
+  `subject_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`test_id`),
+  KEY `FK1kvek8suygrd5tffmfk2vo7fc` (`subject_id`),
+  CONSTRAINT `FK1kvek8suygrd5tffmfk2vo7fc` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `course_history`
+-- Dumping data for table `exam_calendar`
 --
 
-LOCK TABLES `course_history` WRITE;
-/*!40000 ALTER TABLE `course_history` DISABLE KEYS */;
-INSERT INTO `course_history` VALUES (1,_binary '\0','2025-02-06 16:08:23.677956','2024-02-06 16:08:23.679956',1,3);
-/*!40000 ALTER TABLE `course_history` ENABLE KEYS */;
+LOCK TABLES `exam_calendar` WRITE;
+/*!40000 ALTER TABLE `exam_calendar` DISABLE KEYS */;
+INSERT INTO `exam_calendar` VALUES (2,'Bring your ID card',0,'2024-02-15 12:00:00.000000',_binary '\0','Exam Hall 101',100,50,'2024-02-10','2024-02-15 10:00:00.000000','2024-02-15','TOEIC Exam',1);
+/*!40000 ALTER TABLE `exam_calendar` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:19
+-- Dump completed on 2024-02-08 20:04:17

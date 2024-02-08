@@ -16,35 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `benefits`
+-- Table structure for table `exam_question_options`
 --
 
-DROP TABLE IF EXISTS `benefits`;
+DROP TABLE IF EXISTS `exam_question_options`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `benefits` (
-  `benefit_id` bigint NOT NULL AUTO_INCREMENT,
-  `completion` tinyint DEFAULT NULL,
-  `coupon_code` varchar(50) DEFAULT NULL,
-  `description` text,
-  `expiration_date` datetime(6) NOT NULL,
-  `is_active` bit(1) NOT NULL,
-  `required_completion_count` int DEFAULT NULL,
-  `course_id` bigint NOT NULL,
-  PRIMARY KEY (`benefit_id`),
-  UNIQUE KEY `UK_yt6t5d8ou0vbr1mhn3bfdus3` (`coupon_code`),
-  KEY `FK79a07hf7qj2yxvichy8bnxcaq` (`course_id`),
-  CONSTRAINT `FK79a07hf7qj2yxvichy8bnxcaq` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`)
+CREATE TABLE `exam_question_options` (
+  `exam_question_exam_question_id` bigint NOT NULL,
+  `options` varchar(255) NOT NULL,
+  KEY `FKb7lx1ei1yj1xddcsyb1nndiqo` (`exam_question_exam_question_id`),
+  CONSTRAINT `FKb7lx1ei1yj1xddcsyb1nndiqo` FOREIGN KEY (`exam_question_exam_question_id`) REFERENCES `exam_questions` (`exam_question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `benefits`
+-- Dumping data for table `exam_question_options`
 --
 
-LOCK TABLES `benefits` WRITE;
-/*!40000 ALTER TABLE `benefits` DISABLE KEYS */;
-/*!40000 ALTER TABLE `benefits` ENABLE KEYS */;
+LOCK TABLES `exam_question_options` WRITE;
+/*!40000 ALTER TABLE `exam_question_options` DISABLE KEYS */;
+INSERT INTO `exam_question_options` VALUES (1,'선택지 1'),(1,'선택지 2'),(1,'선택지 3'),(1,'선택지 4'),(1,'선택지 5'),(2,'A programming language'),(2,'A coffee brand'),(2,'An island'),(3,'Out-of-Place'),(3,'Object-Oriented Programming'),(3,'Overly Obscure Process'),(4,'Out-of-Place'),(4,'Object-Oriented Programming'),(4,'Overly Obscure Process'),(5,'1 번'),(5,'2 번'),(5,'3 번');
+/*!40000 ALTER TABLE `exam_question_options` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:18
+-- Dump completed on 2024-02-08 20:04:16

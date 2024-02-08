@@ -16,35 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `qna_board`
+-- Table structure for table `courses`
 --
 
-DROP TABLE IF EXISTS `qna_board`;
+DROP TABLE IF EXISTS `courses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `qna_board` (
-  `qna_id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime(6) DEFAULT NULL,
-  `question_text` varchar(255) DEFAULT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `course_id` bigint NOT NULL,
-  `member_id` bigint NOT NULL,
-  PRIMARY KEY (`qna_id`),
-  KEY `FKlwkn03noudiqds4i8v8ohmoqr` (`course_id`),
-  KEY `FK55pw91v2ctmq6ecm2o7d4iopa` (`member_id`),
-  CONSTRAINT `FK55pw91v2ctmq6ecm2o7d4iopa` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`),
-  CONSTRAINT `FKlwkn03noudiqds4i8v8ohmoqr` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `courses` (
+  `course_id` bigint NOT NULL AUTO_INCREMENT,
+  `announcement` varchar(255) DEFAULT NULL,
+  `content_level` varchar(255) NOT NULL,
+  `course_name` varchar(150) NOT NULL,
+  `course_thumbnail` blob,
+  `description` varchar(500) DEFAULT NULL,
+  `duration_mins` int NOT NULL,
+  `price` int NOT NULL,
+  `subject_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`course_id`),
+  KEY `FK5tckdihu5akp5nkxiacx1gfhi` (`subject_id`),
+  CONSTRAINT `FK5tckdihu5akp5nkxiacx1gfhi` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `qna_board`
+-- Dumping data for table `courses`
 --
 
-LOCK TABLES `qna_board` WRITE;
-/*!40000 ALTER TABLE `qna_board` DISABLE KEYS */;
-INSERT INTO `qna_board` VALUES (1,NULL,'질문핑',NULL,1,3),(2,'2024-02-06 18:13:54.378139','여기에 질문 내용을 입력하세요','2024-02-06 18:13:54.378139',1,3),(3,'2024-02-06 18:48:05.128795','QnA 댓글 테스트','2024-02-06 18:48:05.128795',1,3);
-/*!40000 ALTER TABLE `qna_board` ENABLE KEYS */;
+LOCK TABLES `courses` WRITE;
+/*!40000 ALTER TABLE `courses` DISABLE KEYS */;
+INSERT INTO `courses` VALUES (1,'공지사항','750','TOEIC 1',NULL,'토익 1 강',270,99000,1),(2,'공지사항','750','TOEIC 2',_binary 'image','토익 2 강',180,199000,1);
+/*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:18
+-- Dump completed on 2024-02-08 20:04:15

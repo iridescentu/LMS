@@ -16,35 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `contact`
+-- Table structure for table `event`
 --
 
-DROP TABLE IF EXISTS `contact`;
+DROP TABLE IF EXISTS `event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `contact` (
-  `company_id` bigint NOT NULL AUTO_INCREMENT,
+CREATE TABLE `event` (
+  `event_id` bigint NOT NULL AUTO_INCREMENT,
   `additional_info` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `company_name` varchar(255) NOT NULL,
-  `contact_person_name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `phone_number` varchar(255) NOT NULL,
-  `registration_date` date DEFAULT NULL,
-  `website` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`company_id`),
-  UNIQUE KEY `UK_gnqwbwwcn7x0m5jlt4158dass` (`email`),
-  UNIQUE KEY `UK_nob7iupcxhpgiphh8e34xgbb7` (`phone_number`)
+  `event_end_date` date DEFAULT NULL,
+  `event_name` varchar(255) DEFAULT NULL,
+  `event_start_date` date DEFAULT NULL,
+  `prize` varchar(255) DEFAULT NULL,
+  `course_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`event_id`),
+  KEY `FKf23g8ki545p9r4kyvv1lvmt3a` (`course_id`),
+  CONSTRAINT `FKf23g8ki545p9r4kyvv1lvmt3a` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `contact`
+-- Dumping data for table `event`
 --
 
-LOCK TABLES `contact` WRITE;
-/*!40000 ALTER TABLE `contact` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contact` ENABLE KEYS */;
+LOCK TABLES `event` WRITE;
+/*!40000 ALTER TABLE `event` DISABLE KEYS */;
+/*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:19
+-- Dump completed on 2024-02-08 20:04:16

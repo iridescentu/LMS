@@ -16,34 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `todo_list`
+-- Table structure for table `content_categories`
 --
 
-DROP TABLE IF EXISTS `todo_list`;
+DROP TABLE IF EXISTS `content_categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `todo_list` (
-  `task_id` bigint NOT NULL AUTO_INCREMENT,
-  `completion_date` date DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `due_date` datetime(6) DEFAULT NULL,
-  `is_completed` bit(1) DEFAULT NULL,
-  `priority` int DEFAULT NULL,
-  `task_name` varchar(255) DEFAULT NULL,
-  `member_id` bigint NOT NULL,
-  PRIMARY KEY (`task_id`),
-  KEY `FK3x6rbqoxekyny3cnvvcb9tp9y` (`member_id`),
-  CONSTRAINT `FK3x6rbqoxekyny3cnvvcb9tp9y` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`)
+CREATE TABLE `content_categories` (
+  `categoryid` bigint NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`categoryid`),
+  UNIQUE KEY `UKpyocuk9tg6xxl77l02ax68i5` (`category_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `todo_list`
+-- Dumping data for table `content_categories`
 --
 
-LOCK TABLES `todo_list` WRITE;
-/*!40000 ALTER TABLE `todo_list` DISABLE KEYS */;
-/*!40000 ALTER TABLE `todo_list` ENABLE KEYS */;
+LOCK TABLES `content_categories` WRITE;
+/*!40000 ALTER TABLE `content_categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `content_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:19
+-- Dump completed on 2024-02-08 20:04:16

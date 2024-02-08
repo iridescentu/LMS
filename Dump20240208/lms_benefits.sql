@@ -16,40 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `exam_calendar`
+-- Table structure for table `benefits`
 --
 
-DROP TABLE IF EXISTS `exam_calendar`;
+DROP TABLE IF EXISTS `benefits`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `exam_calendar` (
-  `test_id` bigint NOT NULL AUTO_INCREMENT,
-  `additional_info` varchar(255) DEFAULT NULL,
-  `current_applicants` int DEFAULT NULL,
-  `end_time` datetime(6) DEFAULT NULL,
-  `is_online` bit(1) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `max_applicants` int DEFAULT NULL,
-  `price` int DEFAULT NULL,
-  `registration_deadline` date DEFAULT NULL,
-  `start_time` datetime(6) DEFAULT NULL,
-  `test_date` date DEFAULT NULL,
-  `test_name` varchar(255) DEFAULT NULL,
-  `subject_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`test_id`),
-  KEY `FK1kvek8suygrd5tffmfk2vo7fc` (`subject_id`),
-  CONSTRAINT `FK1kvek8suygrd5tffmfk2vo7fc` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `benefits` (
+  `benefit_id` bigint NOT NULL AUTO_INCREMENT,
+  `completion` tinyint DEFAULT NULL,
+  `coupon_code` varchar(50) DEFAULT NULL,
+  `description` text,
+  `expiration_date` datetime(6) NOT NULL,
+  `is_active` bit(1) NOT NULL,
+  `required_completion_count` int DEFAULT NULL,
+  `course_id` bigint NOT NULL,
+  PRIMARY KEY (`benefit_id`),
+  UNIQUE KEY `UK_yt6t5d8ou0vbr1mhn3bfdus3` (`coupon_code`),
+  KEY `FK79a07hf7qj2yxvichy8bnxcaq` (`course_id`),
+  CONSTRAINT `FK79a07hf7qj2yxvichy8bnxcaq` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `exam_calendar`
+-- Dumping data for table `benefits`
 --
 
-LOCK TABLES `exam_calendar` WRITE;
-/*!40000 ALTER TABLE `exam_calendar` DISABLE KEYS */;
-INSERT INTO `exam_calendar` VALUES (2,'Bring your ID card',0,'2024-02-15 12:00:00.000000',_binary '\0','Exam Hall 101',100,50,'2024-02-10','2024-02-15 10:00:00.000000','2024-02-15','TOEIC Exam',1);
-/*!40000 ALTER TABLE `exam_calendar` ENABLE KEYS */;
+LOCK TABLES `benefits` WRITE;
+/*!40000 ALTER TABLE `benefits` DISABLE KEYS */;
+/*!40000 ALTER TABLE `benefits` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -61,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:19
+-- Dump completed on 2024-02-08 20:04:15

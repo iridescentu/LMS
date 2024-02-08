@@ -16,35 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `books`
+-- Table structure for table `contact`
 --
 
-DROP TABLE IF EXISTS `books`;
+DROP TABLE IF EXISTS `contact`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `books` (
-  `book_id` bigint NOT NULL AUTO_INCREMENT,
-  `author_name` varchar(255) DEFAULT NULL,
-  `book_thumbnail` varchar(255) DEFAULT NULL,
-  `book_title` varchar(255) DEFAULT NULL,
-  `description` text,
-  `isbn` varchar(255) DEFAULT NULL,
-  `publication_date` date DEFAULT NULL,
-  `publisher` varchar(255) DEFAULT NULL,
-  `course_id` bigint NOT NULL,
-  PRIMARY KEY (`book_id`),
-  KEY `FKqt8ahb820calhgdenuh25ajm2` (`course_id`),
-  CONSTRAINT `FKqt8ahb820calhgdenuh25ajm2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`)
+CREATE TABLE `contact` (
+  `company_id` bigint NOT NULL AUTO_INCREMENT,
+  `additional_info` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `contact_person_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone_number` varchar(255) NOT NULL,
+  `registration_date` date DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`company_id`),
+  UNIQUE KEY `UK_gnqwbwwcn7x0m5jlt4158dass` (`email`),
+  UNIQUE KEY `UK_nob7iupcxhpgiphh8e34xgbb7` (`phone_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `books`
+-- Dumping data for table `contact`
 --
 
-LOCK TABLES `books` WRITE;
-/*!40000 ALTER TABLE `books` DISABLE KEYS */;
-/*!40000 ALTER TABLE `books` ENABLE KEYS */;
+LOCK TABLES `contact` WRITE;
+/*!40000 ALTER TABLE `contact` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contact` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:20
+-- Dump completed on 2024-02-08 20:04:17

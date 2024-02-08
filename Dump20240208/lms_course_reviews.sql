@@ -16,31 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `login_history`
+-- Table structure for table `course_reviews`
 --
 
-DROP TABLE IF EXISTS `login_history`;
+DROP TABLE IF EXISTS `course_reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `login_history` (
-  `log_id` bigint NOT NULL AUTO_INCREMENT,
-  `ip_address` varchar(255) DEFAULT NULL,
-  `login_time` datetime(6) NOT NULL,
+CREATE TABLE `course_reviews` (
+  `review_id` bigint NOT NULL AUTO_INCREMENT,
+  `comment` varchar(2000) DEFAULT NULL,
+  `rating` int NOT NULL,
+  `review_date` datetime(6) DEFAULT NULL,
+  `course_id` bigint NOT NULL,
   `member_id` bigint NOT NULL,
-  PRIMARY KEY (`log_id`),
-  KEY `FKq2swtm0wd8kuwki103rgvmh6t` (`member_id`),
-  CONSTRAINT `FKq2swtm0wd8kuwki103rgvmh6t` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`review_id`),
+  KEY `FK799g8dfcye3g51ru63bfdhyb1` (`course_id`),
+  KEY `FKlrpaadw9mi16mpm88uum9bdhm` (`member_id`),
+  CONSTRAINT `FK799g8dfcye3g51ru63bfdhyb1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
+  CONSTRAINT `FKlrpaadw9mi16mpm88uum9bdhm` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `login_history`
+-- Dumping data for table `course_reviews`
 --
 
-LOCK TABLES `login_history` WRITE;
-/*!40000 ALTER TABLE `login_history` DISABLE KEYS */;
-INSERT INTO `login_history` VALUES (1,NULL,'2024-01-31 17:45:50.523218',1),(2,NULL,'2024-01-31 17:45:54.711807',1),(3,NULL,'2024-02-01 09:59:49.335335',1),(4,NULL,'2024-02-01 10:52:56.878896',2),(5,NULL,'2024-02-01 17:37:54.015559',2),(6,NULL,'2024-02-02 15:48:08.278988',2),(7,NULL,'2024-02-02 15:56:56.038176',2),(8,NULL,'2024-02-05 14:11:13.045438',2),(9,NULL,'2024-02-05 14:17:54.729493',2),(10,NULL,'2024-02-05 16:23:32.811642',3),(11,NULL,'2024-02-05 16:25:37.597750',3),(12,NULL,'2024-02-06 11:05:14.169086',2),(13,NULL,'2024-02-06 11:36:21.816012',3),(14,NULL,'2024-02-06 11:57:21.271984',2),(15,NULL,'2024-02-06 12:01:30.980048',3);
-/*!40000 ALTER TABLE `login_history` ENABLE KEYS */;
+LOCK TABLES `course_reviews` WRITE;
+/*!40000 ALTER TABLE `course_reviews` DISABLE KEYS */;
+INSERT INTO `course_reviews` VALUES (1,'This course is excellent! Highly recommended.',5,'2024-02-06 18:04:14.327936',1,3);
+/*!40000 ALTER TABLE `course_reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:21
+-- Dump completed on 2024-02-08 20:04:15

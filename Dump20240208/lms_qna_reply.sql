@@ -16,35 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `course_reviews`
+-- Table structure for table `qna_reply`
 --
 
-DROP TABLE IF EXISTS `course_reviews`;
+DROP TABLE IF EXISTS `qna_reply`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `course_reviews` (
-  `review_id` bigint NOT NULL AUTO_INCREMENT,
-  `comment` varchar(2000) DEFAULT NULL,
-  `rating` int NOT NULL,
-  `review_date` datetime(6) DEFAULT NULL,
-  `course_id` bigint NOT NULL,
+CREATE TABLE `qna_reply` (
+  `reply_id` bigint NOT NULL AUTO_INCREMENT,
+  `created_at` datetime(6) DEFAULT NULL,
+  `reply_text` varchar(255) DEFAULT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
   `member_id` bigint NOT NULL,
-  PRIMARY KEY (`review_id`),
-  KEY `FK799g8dfcye3g51ru63bfdhyb1` (`course_id`),
-  KEY `FKlrpaadw9mi16mpm88uum9bdhm` (`member_id`),
-  CONSTRAINT `FK799g8dfcye3g51ru63bfdhyb1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
-  CONSTRAINT `FKlrpaadw9mi16mpm88uum9bdhm` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `qna_id` bigint NOT NULL,
+  PRIMARY KEY (`reply_id`),
+  KEY `FKf89wlc5ik3r7wcms0j7aku03b` (`member_id`),
+  KEY `FKc8dygxmdmhmvie5gthdne0h28` (`qna_id`),
+  CONSTRAINT `FKc8dygxmdmhmvie5gthdne0h28` FOREIGN KEY (`qna_id`) REFERENCES `qna_board` (`qna_id`),
+  CONSTRAINT `FKf89wlc5ik3r7wcms0j7aku03b` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `course_reviews`
+-- Dumping data for table `qna_reply`
 --
 
-LOCK TABLES `course_reviews` WRITE;
-/*!40000 ALTER TABLE `course_reviews` DISABLE KEYS */;
-INSERT INTO `course_reviews` VALUES (1,'This course is excellent! Highly recommended.',5,'2024-02-06 18:04:14.327936',1,3);
-/*!40000 ALTER TABLE `course_reviews` ENABLE KEYS */;
+LOCK TABLES `qna_reply` WRITE;
+/*!40000 ALTER TABLE `qna_reply` DISABLE KEYS */;
+INSERT INTO `qna_reply` VALUES (2,NULL,'답변핑',NULL,2,2);
+/*!40000 ALTER TABLE `qna_reply` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:20
+-- Dump completed on 2024-02-08 20:04:16

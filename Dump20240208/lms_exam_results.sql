@@ -16,33 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `exam_questions`
+-- Table structure for table `exam_results`
 --
 
-DROP TABLE IF EXISTS `exam_questions`;
+DROP TABLE IF EXISTS `exam_results`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `exam_questions` (
-  `exam_question_id` bigint NOT NULL AUTO_INCREMENT,
-  `correct_option_index` int NOT NULL,
-  `quest_paragraph` varchar(255) DEFAULT NULL,
-  `question_text` varchar(255) NOT NULL,
-  `wrong_ans_expl` varchar(255) DEFAULT NULL,
-  `exam_id` bigint NOT NULL,
-  PRIMARY KEY (`exam_question_id`),
-  KEY `FK5cd6sjmccb11rrwpyabyc81c0` (`exam_id`),
-  CONSTRAINT `FK5cd6sjmccb11rrwpyabyc81c0` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`)
+CREATE TABLE `exam_results` (
+  `exam_result_id` bigint NOT NULL AUTO_INCREMENT,
+  `is_correct` bit(1) DEFAULT NULL,
+  `submitted_answer` int DEFAULT NULL,
+  `exam_id` bigint DEFAULT NULL,
+  `exam_question_id` bigint DEFAULT NULL,
+  `member_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`exam_result_id`),
+  KEY `FKtf85ht7yquiorwjx2xbdx3fxw` (`exam_id`),
+  KEY `FKac0uhnlql0d2krvffw5q2g2fl` (`exam_question_id`),
+  KEY `FK8doilcruh6jchd3nhodr7kaix` (`member_id`),
+  CONSTRAINT `FK8doilcruh6jchd3nhodr7kaix` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`),
+  CONSTRAINT `FKac0uhnlql0d2krvffw5q2g2fl` FOREIGN KEY (`exam_question_id`) REFERENCES `exam_questions` (`exam_question_id`),
+  CONSTRAINT `FKtf85ht7yquiorwjx2xbdx3fxw` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `exam_questions`
+-- Dumping data for table `exam_results`
 --
 
-LOCK TABLES `exam_questions` WRITE;
-/*!40000 ALTER TABLE `exam_questions` DISABLE KEYS */;
-INSERT INTO `exam_questions` VALUES (1,3,'시험 본문 어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구','시험 문제','시험 문제에 대한 해설',1),(2,0,'시험 본문 어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구','What is Java?','시험 문제에 대한 해설',1),(3,1,'시험 본문 어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구','What is OOP?','시험 문제에 대한 해설',1),(4,1,'시험 본문 어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구','What is OOP?','시험 문제에 대한 해설',2),(5,1,'시험 본문','시험 문제','시험 문제에 대한 해설',2);
-/*!40000 ALTER TABLE `exam_questions` ENABLE KEYS */;
+LOCK TABLES `exam_results` WRITE;
+/*!40000 ALTER TABLE `exam_results` DISABLE KEYS */;
+INSERT INTO `exam_results` VALUES (1,_binary '',3,1,1,3),(2,_binary '',0,1,2,3),(3,_binary '\0',2,1,3,3),(4,_binary '\0',2,2,4,3),(5,_binary '',1,2,5,3);
+/*!40000 ALTER TABLE `exam_results` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-06 20:48:20
+-- Dump completed on 2024-02-08 20:04:18
